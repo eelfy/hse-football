@@ -1,26 +1,25 @@
-const prod = process.env.START_MODE === 'production';
+const prod = process.env.START_MODE === "production";
 const Dotenv = require("dotenv-webpack");
 
-const path = require('path');
+const path = require("path");
 
-const HTMLWebpackPlugin = require('html-webpack-plugin'); 
-
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const webpack = require('webpack');
-
+const HTMLWebpackPlugin = require("html-webpack-plugin");
+const TerserPlugin = require("terser-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const webpack = require("webpack");
 
 module.exports = (env) => {
-  return ({
-    mode: prod ? 'production' : 'development',
-    entry: './src/index.tsx',
+  return {
+    mode: prod ? "production" : "development",
+    entry: "./src/index.tsx",
 
     output: {
-      path: path.join(__dirname, '/dist'),
+      path: path.join(__dirname, "/dist")
     },
 
     plugins: [
       new HTMLWebpackPlugin({
-        template: './public/index.html'
+        template: "./public/index.html"
       }),
       new MiniCssExtractPlugin(),
       new webpack.DefinePlugin({
@@ -31,7 +30,7 @@ module.exports = (env) => {
     ],
 
     devServer: {
-      historyApiFallback: true,
+      historyApiFallback: true
     },
 
     module: {
@@ -39,17 +38,20 @@ module.exports = (env) => {
         {
           test: /\.(ts|tsx)$/,
           exclude: /node_modules/,
-          use: "ts-loader",
+          use: ["babel-loader", "ts-loader"],
           resolve: {
-            extensions: ['.ts', '.tsx', '.js', '.json'],
-          },
+            extensions: [".ts", ".tsx", ".js", ".json"]
+          }
         },
         {
-          test: /\.css$/,
-          use: [MiniCssExtractPlugin.loader, 'css-loader'],
-        },
-      ],
+          test: /\.scss$/,
+          use: [{ loader: "style-loader" }, { loader: "css-loader", options: { modules: true } }, { loader: "sass-loader" }]
+        }
+      ]
     },
-    devtool: prod ? undefined : 'source-map',
-  });
-}
+    devtool: prod ? undefined : "eval",
+    optimization: {
+      minimize: true
+    }
+  };
+};

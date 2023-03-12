@@ -1,9 +1,9 @@
 export const AppRoutes = {
   Login: '/login',
   TeamSearch: '/team-search',
-  Team: '/team-search/:playerId',
+  Team: '/team-search/:id',
   PlayersSearch: '/players-search',
-  Players: '/players-search/:teamId',
+  Player: '/players-search/:id',
   CreateTeamsRequests: '/teams-requests',
-  TeamRequest: '/teams-requests/:teamId',
+  TeamRequest: '/teams-requests/:id',
 };

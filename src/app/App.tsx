@@ -1,6 +1,10 @@
 import { Route, Routes } from 'react-router-dom';
+import { PlayersSearch } from '../pages/PlayersSearch';
+import { TeamsSearch } from '../pages/TeamsSearch';
 import { TeamRequest } from '../pages/TeamRequest';
 import { CreateTeamsRequests } from '../pages/CreateTeamsRequests';
+import { TeamSearchDetail } from '../pages/TeamSearchDetail';
+import { PlayerSearchDetail } from '../pages/PlayerSearchDetail';
 import { Login } from '../pages/Login';
 
 import { AppRoutes } from '../shared/routes';
@@ -19,14 +23,21 @@ export const App = () => (
         element={<CreateTeamsRequests />}
       />
       <Route
+        path={AppRoutes.Player}
+        element={<PlayerSearchDetail />}
+      />
+      <Route
         path={AppRoutes.PlayersSearch}
-        element={<div>PlayersSearch</div>}
+        element={<PlayersSearch />}
+      />
+      <Route
+        path={AppRoutes.Team}
+        element={<TeamSearchDetail />}
       />
       <Route
         path={AppRoutes.TeamSearch}
-        element={<div>TeamSearch</div>}
+        element={<TeamsSearch />}
       />
-
     </Route>
 
     <Route path="*" element={<Login />} />

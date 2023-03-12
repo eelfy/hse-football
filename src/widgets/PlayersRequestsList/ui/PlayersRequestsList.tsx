@@ -2,7 +2,7 @@ import { RequestCardList } from '../../../features/RequestCardList';
 import { RequestCardProps } from '../../../shared/ui/RequestCard';
 import { AppRoutes } from '../../../shared/routes';
 
-import cn from './CreateTeamsRequestsList.module.scss';
+import cn from './PlayersRequestsList.module.scss';
 
 const requestsCards: RequestCardProps[] = [
   {
@@ -11,7 +11,7 @@ const requestsCards: RequestCardProps[] = [
       title: 'ФИО капитана',
       description: 'Информация о команде...',
     },
-    redirectTo: `${AppRoutes.CreateTeamsRequests}/1`,
+    redirectTo: `${AppRoutes.PlayersSearch}/1`,
   },
   {
     header: 'Название команды',
@@ -19,7 +19,7 @@ const requestsCards: RequestCardProps[] = [
       title: 'ФИО капитана',
       description: 'Информация о команде...',
     },
-    redirectTo: `${AppRoutes.CreateTeamsRequests}/1`,
+    redirectTo: `${AppRoutes.PlayersSearch}/1`,
   },
   {
     header: 'Название команды',
@@ -27,7 +27,7 @@ const requestsCards: RequestCardProps[] = [
       title: 'ФИО капитана',
       description: 'Информация о команде...',
     },
-    redirectTo: `${AppRoutes.CreateTeamsRequests}/1`,
+    redirectTo: `${AppRoutes.PlayersSearch}/1`,
   },
   {
     header: 'Название команды',
@@ -35,7 +35,7 @@ const requestsCards: RequestCardProps[] = [
       title: 'ФИО капитана',
       description: 'Информация о команде...',
     },
-    redirectTo: `${AppRoutes.CreateTeamsRequests}/1`,
+    redirectTo: `${AppRoutes.PlayersSearch}/1`,
   },
   {
     header: 'Название команды',
@@ -43,7 +43,7 @@ const requestsCards: RequestCardProps[] = [
       title: 'ФИО капитана',
       description: 'Информация о команде...',
     },
-    redirectTo: `${AppRoutes.CreateTeamsRequests}/1`,
+    redirectTo: `${AppRoutes.PlayersSearch}/1`,
   },
   {
     header: 'Название команды',
@@ -51,7 +51,7 @@ const requestsCards: RequestCardProps[] = [
       title: 'ФИО капитана',
       description: 'Информация о команде...',
     },
-    redirectTo: `${AppRoutes.CreateTeamsRequests}/1`,
+    redirectTo: `${AppRoutes.PlayersSearch}/1`,
   },
   {
     header: 'Название команды',
@@ -59,7 +59,7 @@ const requestsCards: RequestCardProps[] = [
       title: 'ФИО капитана',
       description: 'Информация о команде...',
     },
-    redirectTo: `${AppRoutes.CreateTeamsRequests}/1`,
+    redirectTo: `${AppRoutes.PlayersSearch}/1`,
   },
   {
     header: 'Название команды',
@@ -67,7 +67,7 @@ const requestsCards: RequestCardProps[] = [
       title: 'ФИО капитана',
       description: 'Информация о команде...',
     },
-    redirectTo: `${AppRoutes.CreateTeamsRequests}/1`,
+    redirectTo: `${AppRoutes.PlayersSearch}/1`,
   },
   {
     header: 'Название команды',
@@ -75,11 +75,11 @@ const requestsCards: RequestCardProps[] = [
       title: 'ФИО капитана',
       description: 'Информация о команде...',
     },
-    redirectTo: `${AppRoutes.CreateTeamsRequests}/1`,
+    redirectTo: `${AppRoutes.PlayersSearch}/1`,
   },
 ];
 
-export const CreateTeamsRequestsList = () => (
+export const PlayersRequestsList = () => (
   <div className={cn.list}>
     <RequestCardList requestsCards={requestsCards} />
   </div>

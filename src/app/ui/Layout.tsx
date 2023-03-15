@@ -1,4 +1,4 @@
-import { Outlet, useNavigate } from 'react-router-dom';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { DashboardOutlined, TableOutlined } from '@ant-design/icons';
 import {
   Layout as AntLayout,
@@ -6,7 +6,7 @@ import {
 } from 'antd';
 import type { MenuProps } from 'antd';
 
-import { createElement } from 'react';
+import { createElement, useMemo } from 'react';
 import { AppRoutes } from '../../shared/routes';
 import cn from './Layout.module.scss';
 
@@ -14,7 +14,7 @@ const { Header, Content, Sider } = AntLayout;
 
 export const Layout = () => {
   const navigate = useNavigate();
-
+  const location = useLocation();
   const menuItems: MenuProps['items'] = [
     {
       key: 'Заявки',
@@ -45,6 +45,15 @@ export const Layout = () => {
     },
   ];
 
+  const defaultSelectedKey = useMemo(() => {
+    const paths = [
+      AppRoutes.TeamSearch,
+      AppRoutes.PlayersSearch,
+      AppRoutes.CreateTeamsRequests,
+    ];
+    return paths.filter((path) => location.pathname.includes(path));
+  }, [location.pathname]);
+
   return (
     <AntLayout className={cn.layout}>
       <Header className={cn.header}>
@@ -54,7 +63,7 @@ export const Layout = () => {
       <AntLayout>
         <Sider width={200}>
           <Menu
-            defaultSelectedKeys={[AppRoutes.CreateTeamsRequests]}
+            defaultSelectedKeys={defaultSelectedKey}
             defaultOpenKeys={['Заявки']}
             className={cn.menu}
             mode="inline"

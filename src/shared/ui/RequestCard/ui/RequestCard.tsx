@@ -5,11 +5,12 @@ import cn from './RequestCard.module.scss';
 
 const { Link, Text } = Typography;
 
+type CardField = string | number;
 export interface RequestCardProps {
-  header: string;
+  header: CardField;
   content: {
-    title: string;
-    description: string;
+    title: CardField;
+    description: CardField;
   };
   redirectTo: string;
 }

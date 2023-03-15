@@ -2,10 +2,11 @@ import { Button, Space, Typography } from 'antd';
 import { useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 import { Description } from '../../../shared/ui/Description';
-import { CardStatus, CardStatusType } from '../../../shared/ui/CardStatus';
+import { CardStatus } from '../../../shared/ui/CardStatus';
 import { DetailedCard } from '../../../shared/ui/DetailedCard';
 
 import cn from './TeamRequest.module.scss';
+import { TeamsCreationsRequestStatus } from '../../../shared/lib/Requests.types';
 
 const { Text } = Typography;
 
@@ -18,7 +19,7 @@ export const TeamRequest = () => {
         <Text style={{ fontSize: '16px' }}>
           Название команды
         </Text>
-        <CardStatus type={CardStatusType.Expectation} />
+        <CardStatus type={TeamsCreationsRequestStatus.Expectation} />
       </Space>
     ),
     [],

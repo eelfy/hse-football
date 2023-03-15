@@ -4,7 +4,7 @@ const { Text } = Typography;
 
 export interface DescriptionProps {
   title: string;
-  description: string
+  description: string | number
 }
 
 export const Description = ({ title, description }: DescriptionProps) => (

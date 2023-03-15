@@ -3,6 +3,15 @@
   height: 8px;
   
   border-radius: 50%;
-  
+}
+
+.badgeConfirmed {
+  background-color: var(--Green);
+}
+.badgeExpectation {
   background-color: var(--Blue);
+}
+
+.badgeRejected {
+  background-color: var(--Red);
 }

@@ -1,86 +1,35 @@
+import { useEffect, useMemo, useState } from 'react';
+import { AdministrationApi } from '../../../shared/api';
 import { RequestCardList } from '../../../features/RequestCardList';
 import { RequestCardProps } from '../../../shared/ui/RequestCard';
 import { AppRoutes } from '../../../shared/routes';
+import { PlayerRequest } from '../../../shared/lib/Requests.types';
 
 import cn from './TeamsRequestsList.module.scss';
 
-const requestsCards: RequestCardProps[] = [
-  {
-    header: 'Название команды',
-    content: {
-      title: 'ФИО капитана',
-      description: 'Информация о команде...',
-    },
-    redirectTo: `${AppRoutes.TeamSearch}/1`,
-  },
-  {
-    header: 'Название команды',
-    content: {
-      title: 'ФИО капитана',
-      description: 'Информация о команде...',
-    },
-    redirectTo: `${AppRoutes.TeamSearch}/1`,
-  },
-  {
-    header: 'Название команды',
-    content: {
-      title: 'ФИО капитана',
-      description: 'Информация о команде...',
-    },
-    redirectTo: `${AppRoutes.TeamSearch}/1`,
-  },
-  {
-    header: 'Название команды',
-    content: {
-      title: 'ФИО капитана',
-      description: 'Информация о команде...',
-    },
-    redirectTo: `${AppRoutes.TeamSearch}/1`,
-  },
-  {
-    header: 'Название команды',
-    content: {
-      title: 'ФИО капитана',
-      description: 'Информация о команде...',
-    },
-    redirectTo: `${AppRoutes.TeamSearch}/1`,
-  },
-  {
-    header: 'Название команды',
-    content: {
-      title: 'ФИО капитана',
-      description: 'Информация о команде...',
-    },
-    redirectTo: `${AppRoutes.TeamSearch}/1`,
-  },
-  {
-    header: 'Название команды',
-    content: {
-      title: 'ФИО капитана',
-      description: 'Информация о команде...',
-    },
-    redirectTo: `${AppRoutes.TeamSearch}/1`,
-  },
-  {
-    header: 'Название команды',
-    content: {
-      title: 'ФИО капитана',
-      description: 'Информация о команде...',
-    },
-    redirectTo: `${AppRoutes.TeamSearch}/1`,
-  },
-  {
-    header: 'Название команды',
-    content: {
-      title: 'ФИО капитана',
-      description: 'Информация о команде...',
-    },
-    redirectTo: `${AppRoutes.TeamSearch}/1`,
-  },
-];
+export const TeamsRequestsList = () => {
+  const [requests, setRequests] = useState<PlayerRequest[] | null>(null);
 
-export const TeamsRequestsList = () => (
-  <div className={cn.list}>
-    <RequestCardList requestsCards={requestsCards} />
-  </div>
-);
+  useEffect(() => {
+    AdministrationApi.getPlayerApplications().then((data) => setRequests(data));
+  }, []);
+
+  const requestsCards: RequestCardProps[] | null = useMemo(() => {
+    if (!requests) return null;
+
+    return requests.map((request) => ({
+      header: request.faculty ?? '',
+      content: {
+        title: request.faculty ?? '',
+        description: request.preferredTournaments,
+      },
+      redirectTo: `${AppRoutes.TeamSearch}/${request.id}`,
+    }));
+  }, [requests]);
+
+  return (
+    <div className={cn.list}>
+      <RequestCardList requestsCards={requestsCards} />
+    </div>
+  );
+};

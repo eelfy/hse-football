@@ -15,13 +15,14 @@ export const App = () => (
     <Route path={AppRoutes.Login} element={<Login />} />
     <Route path="/" element={<Layout />}>
       <Route
-        path={AppRoutes.TeamRequest}
-        element={<TeamRequest />}
+        path={AppRoutes.Team}
+        element={<TeamSearchDetail />}
       />
       <Route
-        path={AppRoutes.CreateTeamsRequests}
-        element={<CreateTeamsRequests />}
+        path={AppRoutes.TeamSearch}
+        element={<TeamsSearch />}
       />
+
       <Route
         path={AppRoutes.Player}
         element={<PlayerSearchDetail />}
@@ -30,16 +31,16 @@ export const App = () => (
         path={AppRoutes.PlayersSearch}
         element={<PlayersSearch />}
       />
+
       <Route
-        path={AppRoutes.Team}
-        element={<TeamSearchDetail />}
+        path={AppRoutes.TeamRequest}
+        element={<TeamRequest />}
       />
       <Route
-        path={AppRoutes.TeamSearch}
-        element={<TeamsSearch />}
+        path={AppRoutes.CreateTeamsRequests}
+        element={<CreateTeamsRequests />}
       />
     </Route>
-
     <Route path="*" element={<Login />} />
   </Routes>
 );

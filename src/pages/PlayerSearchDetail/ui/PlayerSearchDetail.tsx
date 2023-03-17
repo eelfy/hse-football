@@ -1,6 +1,7 @@
 import { Button, Space } from 'antd';
 import { useEffect, useMemo, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { CardLogo } from '../../../shared/ui/CardLogo';
 import { AppRoutes } from '../../../shared/routes';
 import { AdministrationApi } from '../../../shared/api';
 import { TeamRequest } from '../../../shared/lib/Requests.types';
@@ -11,7 +12,7 @@ import cn from './PlayerSearchDetail.module.scss';
 
 export const PlayerSearchDetail = () => {
   const { id } = useParams();
-  const [teamData, setTeamData] = useState<TeamRequest | null>();
+  const [teamData, setTeamData] = useState<TeamRequest | null>(null);
 
   const navigate = useNavigate();
 
@@ -24,8 +25,8 @@ export const PlayerSearchDetail = () => {
   const cardExtra = useMemo(() => (
     <Button
       type="primary"
-      onClick={async () => {
-        await AdministrationApi.deleteTeamApplication(Number(id));
+      onClick={() => {
+        AdministrationApi.deleteTeamApplication(Number(id));
         navigate(AppRoutes.PlayersSearch);
       }}
     >
@@ -39,6 +40,7 @@ export const PlayerSearchDetail = () => {
     <div className={cn.wrapper}>
       <DetailedCard title={teamData.teamId} extra={cardExtra}>
         <Space direction="vertical">
+          <CardLogo src={teamData.logo} alt={teamData.name} />
           <Description
             title="Позиции"
             description={teamData.playerPosition}
@@ -47,10 +49,14 @@ export const PlayerSearchDetail = () => {
             title="Турнир"
             description={teamData.tournaments}
           />
-          <Description
-            title="Контактная информация"
-            description={teamData.teamId}
-          />
+          {
+            teamData.contact && (
+            <Description
+              title="Контактная информация"
+              description={teamData.contact}
+            />
+            )
+          }
           {
             teamData.description && (
               <Description

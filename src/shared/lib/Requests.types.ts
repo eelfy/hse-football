@@ -4,6 +4,11 @@ export interface PlayerRequest {
   footballPosition: number;
   preferredTournaments: number;
   faculty?: string;
+  footballExperience?: string;
+  tournamentExperience?: string;
+  contact?: string;
+  name?: string
+  photo?: string;
 }
 
 export interface TeamRequest {
@@ -11,33 +16,21 @@ export interface TeamRequest {
   teamId: number;
   playerPosition: number;
   tournaments: number;
-  description?: string
+  description?: string;
+  name?: string;
+  logo?: string;
+  contact?: string;
 }
 
 export interface TeamsCreationsRequest {
   id: number;
   name?: string;
   captainPhoneNumber?: string;
-  logoURL?: string;
+  captainName?: string;
+  logo?: string;
   about?: string;
   status: TeamsCreationsRequestStatus
 }
-
-export interface PlayerData {
-  phoneNumber: string,
-  name?: string,
-  isCaptain: boolean,
-  isRegistered: boolean,
-  about?: string,
-  contact?: string,
-  footballExperience?: string,
-  tournamentExperience?: string,
-  photoURL?: string,
-  hseRole?: string,
-  applicationId: number,
-}
-
-export type FullPlayerInfo = PlayerData & PlayerRequest;
 
 export enum TeamsCreationsRequestStatus {
   Expectation = 0,

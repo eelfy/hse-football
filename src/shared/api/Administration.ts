@@ -1,6 +1,5 @@
-import { customFetch } from './lib/customFetch.util';
+import { basePath, customFetch } from './lib/customFetch.util';
 import {
-  PlayerData,
   PlayerRequest,
   TeamRequest,
   TeamsCreationsRequest,
@@ -12,10 +11,6 @@ const TeamApplications = 'TeamApplications';
 const Teams = 'Teams';
 
 export const AdministrationApi = {
-  getPlayer: (phoneNumber: string) => customFetch<PlayerData>(
-    `Players/${phoneNumber}`,
-  ),
-
   getPlayerApplications: () => customFetch<PlayerRequest[]>(
     `${PlayerApplications}`,
   ),
@@ -45,12 +40,7 @@ export const AdministrationApi = {
   getTeamCreateApplicationsByStatus: (
     status: TeamsCreationsRequestStatus,
   ) => customFetch<TeamsCreationsRequest[]>(
-    `${Teams}/filters`,
-    {
-      body: JSON.stringify({
-        status,
-      }),
-    },
+    `${Teams}/filters?status=${status}`,
   ),
   getTeamCreateRequestById: (id: number) => customFetch<TeamsCreationsRequest>(
     `${Teams}/${id}`,
@@ -61,10 +51,17 @@ export const AdministrationApi = {
   ) => customFetch(
     `${Teams}/${id}`,
     {
-      method: 'DELETE',
+      method: 'PUT',
       body: JSON.stringify({
         ...newTeamRequest,
       }),
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+      },
     },
+    true,
+    false,
   ),
+
+  authorize: (password: string) => fetch(`${basePath}/Authorize/${password}`).then((data) => data.ok),
 };

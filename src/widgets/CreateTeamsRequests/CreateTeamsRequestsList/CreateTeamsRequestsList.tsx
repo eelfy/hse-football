@@ -1,86 +1,42 @@
+import { useState, useEffect, useMemo } from 'react';
+import { TeamsCreationsRequest, TeamsCreationsRequestStatus } from '../../../shared/lib/Requests.types';
+import { AdministrationApi } from '../../../shared/api';
 import { RequestCardList } from '../../../features/RequestCardList';
-import { RequestCardProps } from '../../../shared/ui/RequestCard';
 import { AppRoutes } from '../../../shared/routes';
+import { RequestCardProps } from '../../../shared/ui/RequestCard';
 
 import cn from './CreateTeamsRequestsList.module.scss';
 
-const requestsCards: RequestCardProps[] = [
-  {
-    header: 'Название команды',
-    content: {
-      title: 'ФИО капитана',
-      description: 'Информация о команде...',
-    },
-    redirectTo: `${AppRoutes.CreateTeamsRequests}/1`,
-  },
-  {
-    header: 'Название команды',
-    content: {
-      title: 'ФИО капитана',
-      description: 'Информация о команде...',
-    },
-    redirectTo: `${AppRoutes.CreateTeamsRequests}/1`,
-  },
-  {
-    header: 'Название команды',
-    content: {
-      title: 'ФИО капитана',
-      description: 'Информация о команде...',
-    },
-    redirectTo: `${AppRoutes.CreateTeamsRequests}/1`,
-  },
-  {
-    header: 'Название команды',
-    content: {
-      title: 'ФИО капитана',
-      description: 'Информация о команде...',
-    },
-    redirectTo: `${AppRoutes.CreateTeamsRequests}/1`,
-  },
-  {
-    header: 'Название команды',
-    content: {
-      title: 'ФИО капитана',
-      description: 'Информация о команде...',
-    },
-    redirectTo: `${AppRoutes.CreateTeamsRequests}/1`,
-  },
-  {
-    header: 'Название команды',
-    content: {
-      title: 'ФИО капитана',
-      description: 'Информация о команде...',
-    },
-    redirectTo: `${AppRoutes.CreateTeamsRequests}/1`,
-  },
-  {
-    header: 'Название команды',
-    content: {
-      title: 'ФИО капитана',
-      description: 'Информация о команде...',
-    },
-    redirectTo: `${AppRoutes.CreateTeamsRequests}/1`,
-  },
-  {
-    header: 'Название команды',
-    content: {
-      title: 'ФИО капитана',
-      description: 'Информация о команде...',
-    },
-    redirectTo: `${AppRoutes.CreateTeamsRequests}/1`,
-  },
-  {
-    header: 'Название команды',
-    content: {
-      title: 'ФИО капитана',
-      description: 'Информация о команде...',
-    },
-    redirectTo: `${AppRoutes.CreateTeamsRequests}/1`,
-  },
-];
+interface CreateTeamsRequestsListProps {
+  teamRequestsType: TeamsCreationsRequestStatus
+}
 
-export const CreateTeamsRequestsList = () => (
-  <div className={cn.list}>
-    <RequestCardList requestsCards={requestsCards} />
-  </div>
-);
+export const CreateTeamsRequestsList = ({
+  teamRequestsType,
+}: CreateTeamsRequestsListProps) => {
+  const [requests, setRequests] = useState<TeamsCreationsRequest[] | null>(null);
+
+  useEffect(() => {
+    AdministrationApi.getTeamCreateApplicationsByStatus(teamRequestsType)
+      .then((data) => setRequests(data));
+  }, []);
+
+  const requestsCards: RequestCardProps[] | null = useMemo(() => {
+    if (!requests) return null;
+
+    return requests.map((request) => ({
+      header: request.name ?? '',
+      content: {
+        title: request.captainName ?? '',
+        description: request.about ?? '',
+      },
+      redirectTo: `${AppRoutes.CreateTeamsRequests}/${request.id}`,
+    }));
+  }, [requests]);
+
+  return (
+    <div className={cn.list}>
+      <RequestCardList requestsCards={requestsCards} />
+    </div>
+  );
+};

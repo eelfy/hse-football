@@ -7,8 +7,8 @@ import { Button, Input } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { LockOutlined } from '@ant-design/icons/lib/icons';
 import { AppRoutes } from '../../../shared/routes';
-import { MOCK_ADMIN } from '../config/Login.config';
 import cn from './Login.module.scss';
+import { AuthService } from '../../../shared/api/lib/AuthService.util';
 
 export const Login = () => {
   const [login, setLogin] = useState('');
@@ -42,9 +42,14 @@ export const Login = () => {
 
   const onAuth = useCallback(
     () => {
-      if (login === MOCK_ADMIN.login && password === MOCK_ADMIN.password) {
-        navigate(AppRoutes.CreateTeamsRequests);
-      }
+      const newPassword = login + password;
+      AuthService.validatePassword(newPassword)
+        .then((isValid) => {
+          if (isValid) {
+            AuthService.setPassword(newPassword);
+            navigate(AppRoutes.CreateTeamsRequests);
+          }
+        });
     },
     [login, navigate, password],
   );

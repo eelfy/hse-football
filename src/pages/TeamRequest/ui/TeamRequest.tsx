@@ -1,61 +1,92 @@
 import { Button, Space, Typography } from 'antd';
-import { useMemo } from 'react';
+import {
+  useCallback, useEffect, useMemo, useState,
+} from 'react';
 import { useParams } from 'react-router-dom';
 import { Description } from '../../../shared/ui/Description';
 import { CardStatus } from '../../../shared/ui/CardStatus';
 import { DetailedCard } from '../../../shared/ui/DetailedCard';
+import { TeamsCreationsRequest, TeamsCreationsRequestStatus } from '../../../shared/lib/Requests.types';
+import { AdministrationApi } from '../../../shared/api';
 
 import cn from './TeamRequest.module.scss';
-import { TeamsCreationsRequestStatus } from '../../../shared/lib/Requests.types';
 
 const { Text } = Typography;
 
 export const TeamRequest = () => {
-  const { teamId } = useParams();
+  const { id } = useParams();
+
+  const [data, setData] = useState<TeamsCreationsRequest | null>(null);
 
   const cardTitle = useMemo(
-    () => (
+    () => data && (
       <Space>
         <Text style={{ fontSize: '16px' }}>
-          Название команды
+          {data.name}
         </Text>
-        <CardStatus type={TeamsCreationsRequestStatus.Expectation} />
+        <CardStatus type={data.status} />
       </Space>
     ),
-    [],
+    [data],
   );
 
-  const cardExtra = useMemo(() => (
-    <Space size={24}>
-      <Button onClick={() => console.log(teamId)}>
-        Отклонить
-      </Button>
-      <Button type="primary" onClick={() => console.log(teamId)}>
-        Одобрить
-      </Button>
-    </Space>
-  ), [teamId]);
+  const updateData = useCallback(
+    () => {
+      AdministrationApi.getTeamCreateRequestById(
+        Number(id),
+      ).then((dt) => setData(dt));
+    },
+    [id],
+  );
+
+  const updateStatus = useCallback(
+    async (
+      teamData: TeamsCreationsRequest,
+      status: TeamsCreationsRequestStatus,
+    ) => {
+      await AdministrationApi.updateTeamCreateRequest(teamData.id, { ...teamData, status });
+      updateData();
+    },
+    [updateData],
+  );
+
+  const cardExtra = useMemo(
+    () => (data?.status === TeamsCreationsRequestStatus.Expectation
+      ? (
+        <Space size={24}>
+          <Button
+            onClick={() => updateStatus(
+              data,
+              TeamsCreationsRequestStatus.Rejected,
+            )}
+          >
+            Отклонить
+          </Button>
+          <Button
+            type="primary"
+            onClick={() => updateStatus(
+              data,
+              TeamsCreationsRequestStatus.Confirmed,
+            )}
+          >
+            Одобрить
+          </Button>
+        </Space>
+      )
+      : null),
+    [data, updateStatus],
+  );
+
+  useEffect(() => {
+    updateData();
+  }, [updateData]);
 
   return (
     <div className={cn.wrapper}>
       <DetailedCard title={cardTitle} extra={cardExtra}>
         <Space direction="vertical" size={24}>
-          <Description title="Капитан команды" description="Фамилия Имя Отчество" />
-          <Description
-            title="Капитан команды"
-            description="
-              Мы ищем мотивированных игроков,
-              желающих как играть в футбол, так и развиваться самостоятельно и вместе с командой;
-              также важно наличие футбольного скилла, необходимым является наличие хотя бы
-              минимального опыта в спортшколе/дюсш и подобных организациях.Как команда,
-              мы предлагаем:• регулярные тренировки с тренером на полях спорткомплекса “Лужники”•
-              стремление прогрессировать, занимать первые места во всех турнирах
-              под эгидой чемпионата Вышки, так мы прошли за полтора года путь от низших мест
-              Молодёжной Лиги до верхового футбола Вышки, и выиграли уже 4 комплекта медалей•
-              самый молодой коллектив в верховом футболе НИУ ВШЭ, при этом дружный и амбициозный
-            "
-          />
-
+          { data?.captainName && <Description title="Капитан команды" description={data?.captainName} /> }
+          { data?.about && <Description title="Информация о команде" description={data?.about} /> }
         </Space>
       </DetailedCard>
     </div>

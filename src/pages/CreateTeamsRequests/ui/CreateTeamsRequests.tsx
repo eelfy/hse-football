@@ -1,21 +1,28 @@
 import { Tabs, TabsProps } from 'antd';
+import { TeamsCreationsRequestStatus } from '../../../shared/lib/Requests.types';
 import { CreateTeamsRequestsList } from '../../../widgets/CreateTeamsRequests';
 import { PageWithHeaderLayout } from '../../../widgets/PageWithHeaderLayout';
 
 const tabItems: TabsProps['items'] = [{
-  key: '1',
+  key: String(TeamsCreationsRequestStatus.Expectation),
   label: 'Ожидание',
-  children: <CreateTeamsRequestsList />,
+  children: <CreateTeamsRequestsList
+    teamRequestsType={TeamsCreationsRequestStatus.Expectation}
+  />,
 },
 {
-  key: '2',
+  key: String(TeamsCreationsRequestStatus.Confirmed),
   label: 'Подтвержденные',
-  children: <CreateTeamsRequestsList />,
+  children: <CreateTeamsRequestsList
+    teamRequestsType={TeamsCreationsRequestStatus.Confirmed}
+  />,
 },
 {
-  key: '3',
+  key: String(TeamsCreationsRequestStatus.Rejected),
   label: 'Отклоненные',
-  children: <CreateTeamsRequestsList />,
+  children: <CreateTeamsRequestsList
+    teamRequestsType={TeamsCreationsRequestStatus.Rejected}
+  />,
 }];
 
 export const CreateTeamsRequests = () => (

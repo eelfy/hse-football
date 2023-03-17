@@ -1,10 +1,9 @@
-import {
-  useCallback, useEffect, useMemo, useState,
-} from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { Button, Space } from 'antd';
+import { CardLogo } from '../../../shared/ui/CardLogo';
 import { AdministrationApi } from '../../../shared/api';
-import { FullPlayerInfo, PlayerData } from '../../../shared/lib/Requests.types';
+import { PlayerRequest } from '../../../shared/lib/Requests.types';
 import { AppRoutes } from '../../../shared/routes';
 import { Description } from '../../../shared/ui/Description';
 import { DetailedCard } from '../../../shared/ui/DetailedCard';
@@ -13,38 +12,22 @@ import cn from './TeamSearchDetail.module.scss';
 
 export const TeamSearchDetail = () => {
   const { id } = useParams();
-  const [fullPlayerData, setFullPlayerData] = useState<FullPlayerInfo | null>();
+  const [fullPlayerData, setFullPlayerData] = useState<PlayerRequest | null>();
 
   const navigate = useNavigate();
 
-  const createPlayerData = useCallback(
-    async () => {
-      const playerRequestData = await AdministrationApi.getPlayerApplicationById(
-        Number(id),
-      );
-      let playerData: PlayerData = {} as PlayerData;
-
-      if (playerRequestData.playerPhoneNumber) {
-        playerData = await AdministrationApi.getPlayer(playerRequestData.playerPhoneNumber);
-      }
-
-      return {
-        ...playerData,
-        ...playerRequestData,
-      } as FullPlayerInfo;
-    },
-    [id],
-  );
   useEffect(() => {
-    createPlayerData().then((data) => setFullPlayerData(data));
-  }, [createPlayerData, id]);
+    AdministrationApi.getPlayerApplicationById(
+      Number(id),
+    ).then((data) => setFullPlayerData(data));
+  }, [id]);
 
   const cardExtra = useMemo(() => (
     <Button
       type="primary"
-      onClick={async () => {
-        await AdministrationApi.deletePlayerApplication(Number(id));
-        navigate(AppRoutes.PlayersSearch);
+      onClick={() => {
+        AdministrationApi.deletePlayerApplication(Number(id));
+        navigate(AppRoutes.TeamSearch);
       }}
     >
       Удалить заявку
@@ -57,6 +40,7 @@ export const TeamSearchDetail = () => {
     <div className={cn.wrapper}>
       <DetailedCard title={fullPlayerData.name} extra={cardExtra}>
         <Space direction="vertical">
+          <CardLogo src={fullPlayerData.photo} alt={fullPlayerData.name} />
           <Description
             title="Амплуа"
             description={fullPlayerData.footballPosition}
@@ -82,10 +66,10 @@ export const TeamSearchDetail = () => {
             )
           }
           {
-            fullPlayerData.hseRole && (
+            fullPlayerData.tournamentExperience && (
             <Description
               title="Игровой опыт в турнирах ВШЭ"
-              description={fullPlayerData.hseRole}
+              description={fullPlayerData.tournamentExperience}
             />
             )
           }

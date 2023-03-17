@@ -10,7 +10,7 @@ export interface CardStatusProps {
 }
 
 const cardStatusTypeToLabel: Record<TeamsCreationsRequestStatus, string> = {
-  [TeamsCreationsRequestStatus.Confirmed]: 'Подтвержденные',
+  [TeamsCreationsRequestStatus.Confirmed]: 'Подтверждена',
   [TeamsCreationsRequestStatus.Expectation]: 'Ожидание',
   [TeamsCreationsRequestStatus.Rejected]: 'Отклонена',
 };

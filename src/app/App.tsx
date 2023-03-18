@@ -1,5 +1,5 @@
 import { Route, Routes, useNavigate } from 'react-router-dom';
-import { ReactNode, useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { PlayersSearch } from '../pages/PlayersSearch';
 import { TeamsSearch } from '../pages/TeamsSearch';
 import { TeamRequest } from '../pages/TeamRequest';
@@ -34,7 +34,7 @@ export const App = () => (
         <AuthorizedRoute>
           <Layout />
         </AuthorizedRoute>
-   )}
+      )}
     >
       <Route
         path={AppRoutes.Team}

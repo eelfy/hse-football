@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack serve --port 3000 --hot",
-    "build": "START_MODE=production webpack"
+    "build": "webpack --env START_MODE=production"
   },
   "keywords": [],
   "author": "",

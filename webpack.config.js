@@ -1,16 +1,14 @@
-const prod = process.env.START_MODE === "production";
-const Dotenv = require("dotenv-webpack");
-
 const path = require("path");
 
 const HTMLWebpackPlugin = require("html-webpack-plugin");
-const TerserPlugin = require("terser-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const webpack = require("webpack");
 
 module.exports = (env) => {
+  const isProduction = env.START_MODE === "production";
+  console.log(isProduction);
   return {
-    mode: prod ? "production" : "development",
+    mode: isProduction ? "production" : "development",
     entry: "./src/index.tsx",
 
     output: {
@@ -49,7 +47,7 @@ module.exports = (env) => {
         }
       ]
     },
-    devtool: prod ? undefined : "eval",
+    devtool: isProduction ? "source-map" : "eval",
     optimization: {
       minimize: true
     }

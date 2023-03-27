@@ -38,7 +38,7 @@ export const PlayerSearchDetail = () => {
 
   return (
     <div className={cn.wrapper}>
-      <DetailedCard title={teamData.teamId} extra={cardExtra}>
+      <DetailedCard title={teamData.name} extra={cardExtra}>
         <Space direction="vertical">
           <CardLogo src={teamData.logo} alt={teamData.name} />
           <Description

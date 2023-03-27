@@ -18,10 +18,10 @@ export const TeamsRequestsList = () => {
     if (!requests) return null;
 
     return requests.map((request) => ({
-      header: request.faculty ?? '',
+      header: request.name ?? '',
       content: {
-        title: request.faculty ?? '',
-        description: request.preferredTournaments,
+        title: request.footballPosition,
+        description: request.footballExperience ?? '',
       },
       redirectTo: `${AppRoutes.TeamSearch}/${request.id}`,
     }));

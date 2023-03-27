@@ -18,7 +18,7 @@ export const PlayersRequestsList = () => {
     if (!requests) return null;
 
     return requests.map((request) => ({
-      header: request.teamId,
+      header: request.name ?? '',
       content: {
         title: request.playerPosition,
         description: request.tournaments,

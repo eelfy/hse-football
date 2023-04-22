@@ -44,6 +44,14 @@ module.exports = (env) => {
         {
           test: /\.scss$/,
           use: [{ loader: "style-loader" }, { loader: "css-loader", options: { modules: true } }, { loader: "sass-loader" }]
+        },
+        {
+          test: /\.(png|jpe?g|gif)$/i,
+          use: [
+            {
+              loader: "file-loader"
+            }
+          ]
         }
       ]
     },

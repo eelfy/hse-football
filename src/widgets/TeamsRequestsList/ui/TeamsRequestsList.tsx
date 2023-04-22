@@ -22,6 +22,7 @@ export const TeamsRequestsList = () => {
       content: {
         title: request.footballPosition,
         description: request.footballExperience ?? '',
+        attention: request.attention,
       },
       redirectTo: `${AppRoutes.TeamSearch}/${request.id}`,
     }));

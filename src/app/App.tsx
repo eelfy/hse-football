@@ -1,4 +1,6 @@
-import { Route, Routes, useNavigate } from 'react-router-dom';
+import {
+  Route, Routes, useNavigate, Navigate,
+} from 'react-router-dom';
 import { useEffect } from 'react';
 import { PlayersSearch } from '../pages/PlayersSearch';
 import { TeamsSearch } from '../pages/TeamsSearch';
@@ -6,6 +8,7 @@ import { TeamRequest } from '../pages/TeamRequest';
 import { CreateTeamsRequests } from '../pages/CreateTeamsRequests';
 import { TeamSearchDetail } from '../pages/TeamSearchDetail';
 import { PlayerSearchDetail } from '../pages/PlayerSearchDetail';
+import { Support } from '../pages/Support';
 import { Login } from '../pages/Login';
 
 import { AppRoutes } from '../shared/routes';
@@ -37,6 +40,11 @@ export const App = () => (
       )}
     >
       <Route
+        path=""
+        element={(<Navigate to={AppRoutes.CreateTeamsRequests} />
+          )}
+      />
+      <Route
         path={AppRoutes.Team}
         element={<TeamSearchDetail />}
       />
@@ -61,6 +69,10 @@ export const App = () => (
       <Route
         path={AppRoutes.CreateTeamsRequests}
         element={<CreateTeamsRequests />}
+      />
+      <Route
+        path={AppRoutes.Support}
+        element={<Support />}
       />
     </Route>
     <Route path="*" element={<Login />} />

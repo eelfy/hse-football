@@ -38,7 +38,7 @@ export const TeamSearchDetail = () => {
 
   return (
     <div className={cn.wrapper}>
-      <DetailedCard title={fullPlayerData.name} extra={cardExtra}>
+      <DetailedCard attention={fullPlayerData.attention} title={fullPlayerData.name} extra={cardExtra}>
         <Space direction="vertical">
           <CardLogo src={fullPlayerData.photo} alt={fullPlayerData.name} />
           <Description
@@ -58,10 +58,10 @@ export const TeamSearchDetail = () => {
           />
 
           {
-            fullPlayerData.tournamentExperience && (
+            fullPlayerData.footballExperience && (
               <Description
                 title="Футбольный опыт"
-                description={fullPlayerData.tournamentExperience}
+                description={fullPlayerData.footballExperience}
               />
             )
           }

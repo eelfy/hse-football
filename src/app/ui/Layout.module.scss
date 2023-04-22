@@ -22,3 +22,12 @@
 .content {
   background-color: var(--AppBackground);
 }
+
+.logout {
+  position: absolute;
+  bottom: 24px;
+  width: 200px;
+
+  display: flex;
+  justify-content: center;
+}

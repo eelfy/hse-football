@@ -29,13 +29,16 @@
       }
     ],
     "no-debugger": "warn",
-    "react/react-in-jsx-scope": "off", // in react v17+ we can not import react in jsx files
-    "react/function-component-definition": [2, { "namedComponents": "arrow-function" }], // i am prefer to use only arrow function for components
+    "react/react-in-jsx-scope": "off",
+    "react/function-component-definition": [2, { "namedComponents": "arrow-function" }],
     "import/prefer-default-export": "off",
     "@typescript-eslint/no-unused-vars": "warn",
-    "@typescript-eslint/no-use-before-define": [2, "nofunc"], // functions are hoisted
+    "@typescript-eslint/no-use-before-define": [2, "nofunc"],
     "react/jsx-props-no-spreading": "off",
     "react-hooks/rules-of-hooks": "warn",    
-    "react-hooks/exhaustive-deps": "warn"
+    "react-hooks/exhaustive-deps": "warn",
+    "react/require-default-props": "off",
+    "jsx-a11y/no-static-element-interactions": "off",
+    "jsx-a11y/click-events-have-key-events": "off"
   }
 }

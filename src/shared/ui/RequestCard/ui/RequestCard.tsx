@@ -1,6 +1,8 @@
 import { Card, Space, Typography } from 'antd';
 import { useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
+
+import { AttentionIcon } from '../../AttentionIcon';
 import cn from './RequestCard.module.scss';
 
 const { Link, Text } = Typography;
@@ -11,6 +13,7 @@ export interface RequestCardProps {
   content: {
     title: CardField;
     description: CardField;
+    attention?: boolean
   };
   redirectTo: string;
 }
@@ -40,10 +43,15 @@ export const RequestCard = ({ header, content, redirectTo }: RequestCardProps) =
         </Link>
       )}
     >
-      <Space direction="vertical">
-        <Text>{content.title}</Text>
-        <Text type="secondary">{content.description}</Text>
-      </Space>
+      <div className={cn.cardContent}>
+        <Space direction="vertical">
+          <Text>{content.title}</Text>
+          <Text type="secondary">{content.description}</Text>
+        </Space>
+        {content.attention && (
+          <AttentionIcon />
+        )}
+      </div>
     </Card>
   );
 };

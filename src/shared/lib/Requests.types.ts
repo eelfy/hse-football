@@ -9,6 +9,7 @@ export interface PlayerRequest {
   contact?: string;
   name?: string
   photo?: string;
+  attention: boolean
 }
 
 export interface TeamRequest {
@@ -20,6 +21,7 @@ export interface TeamRequest {
   name?: string;
   logo?: string;
   contact?: string;
+  attention: boolean
 }
 
 export interface TeamsCreationsRequest {
@@ -30,6 +32,26 @@ export interface TeamsCreationsRequest {
   logo?: string;
   about?: string;
   status: TeamsCreationsRequestStatus
+}
+
+export interface MessageRequest {
+  id: number;
+  sendTime?: string;
+  text?: string;
+  isRead: boolean;
+  sender?: string;
+  receiver?: string;
+}
+
+export interface ChatRequest {
+  id: number;
+  lastMessage: MessageRequest
+  phoneNumber1?: string;
+  name1?: string;
+  photo1?: string;
+  phoneNumber2?: string;
+  name2?: string;
+  photo2?: string;
 }
 
 export enum TeamsCreationsRequestStatus {

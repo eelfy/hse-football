@@ -7,8 +7,10 @@ import { Button, Input } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { LockOutlined } from '@ant-design/icons/lib/icons';
 import { AppRoutes } from '../../../shared/routes';
-import cn from './Login.module.scss';
 import { AuthService } from '../../../shared/api/lib/AuthService.util';
+import Logo from '../../../assets/Logo.png';
+
+import cn from './Login.module.scss';
 
 export const Login = () => {
   const [login, setLogin] = useState('');
@@ -57,9 +59,13 @@ export const Login = () => {
   return (
     <div className={cn.login}>
       <div className={cn.loginBlock}>
-        <div className={cn.logo}>logo</div>
-        <div className={cn.loginForm}>
+        <div className={cn.logoContainer}>
+          <img src={Logo} alt="applogo" />
+          <h2 className={cn.appName}>HSE FOOTBALL</h2>
+          <span className={cn.appDesc}>ADMIN PANEL</span>
+        </div>
 
+        <div className={cn.loginForm}>
           <Input
             value={login}
             onChange={onLoginChange}

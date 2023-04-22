@@ -22,6 +22,7 @@ export const PlayersRequestsList = () => {
       content: {
         title: request.playerPosition,
         description: request.tournaments,
+        attention: request.attention,
       },
       redirectTo: `${AppRoutes.PlayersSearch}/${request.id}`,
     }));

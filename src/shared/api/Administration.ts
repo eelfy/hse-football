@@ -1,5 +1,7 @@
 import { basePath, customFetch } from './lib/customFetch.util';
 import {
+  ChatRequest,
+  MessageRequest,
   PlayerRequest,
   TeamRequest,
   TeamsCreationsRequest,
@@ -47,7 +49,7 @@ export const AdministrationApi = {
   ),
   updateTeamCreateRequest: (
     id: number,
-    newTeamRequest:Partial<TeamsCreationsRequest>,
+    newTeamRequest: Partial<TeamsCreationsRequest>,
   ) => customFetch(
     `${Teams}/${id}`,
     {
@@ -61,6 +63,25 @@ export const AdministrationApi = {
     },
     true,
     false,
+  ),
+
+  getAllChats: () => customFetch<ChatRequest[]>(
+    'Chats',
+  ),
+
+  getMessages: (userPhone: string, loadNumber: number = 0) => customFetch<MessageRequest[]>(
+    `Messages/${userPhone}/${loadNumber}`,
+  ),
+
+  sendMessage: (message: Partial<MessageRequest>) => customFetch(
+    'Messages',
+    {
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+      },
+      method: 'POST',
+      body: JSON.stringify(message),
+    },
   ),
 
   authorize: (password: string) => fetch(`${basePath}/Authorize/${password}`).then((data) => data.ok),

@@ -1,5 +1,3 @@
-$size: 114px;
-
 .login {
     height: 100vh;
 
@@ -14,21 +12,25 @@ $size: 114px;
     justify-content: center;
     flex-direction: column;
 
-    gap: 40px;
+    gap: 25px;
 }
 
-.logo {
-    width: $size;
-    height: $size;
-
-    background-color: #fff;
-    border-radius: 50%;
-
+.logoContainer {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
+}
 
-    color: var(--Gray);
+.appName {
+    color: var(--Blue);
+    margin-top: 14px;
+    margin-bottom: 8px;
+    font-size: 18px;
+}
+
+.appDesc {
+    color: #000000B2;
+    font-size: 12px;
 }
 
 .loginForm {

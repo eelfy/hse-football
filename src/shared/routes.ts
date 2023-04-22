@@ -6,4 +6,5 @@ export const AppRoutes = {
   Player: '/players-search/:id',
   CreateTeamsRequests: '/teams-requests',
   TeamRequest: '/teams-requests/:id',
+  Support: '/Support',
 };
